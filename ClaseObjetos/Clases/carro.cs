@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,11 +24,12 @@ namespace ClaseObjetos.Clases
         public int encendido = 0;
         private int arranque = 0;
         private bool freno = false;
-        
-        //Frenado
-        //Marcha atras
-        //desaceleracion
-        //giro
+        public int parqueao = 1;
+        public int  patras= 0;
+        public int quieto = 0;
+        public int Dlante = 0;
+       
+        //encender luces
         //encendido de radio
         //encendido aire
         //colocar seguro
@@ -48,12 +50,12 @@ namespace ClaseObjetos.Clases
         }
         public int acelerar()
         {
-            if (encendido == 0)
+            if (encendido == 0 || quieto==1)
             {
                 return 0;
             }
 
-            if (velocidad_actual >= Maxvelocidad)
+            if (velocidad_actual == Maxvelocidad)
             {
                 return velocidad_actual;
             }
@@ -62,7 +64,7 @@ namespace ClaseObjetos.Clases
 
             if (velocidad_actual > Maxvelocidad)
             {
-                velocidad_actual = Maxvelocidad;
+                velocidad_actual = Maxvelocidad; 
             }
 
             return velocidad_actual;
@@ -70,17 +72,16 @@ namespace ClaseObjetos.Clases
 
         public int desacelerar()
         {
-            if (encendido == 0)
+            if (encendido == 0 )
             {
                 return 0;
             }
-
-            if (velocidad_actual == 0)
-            {
-                return 0;
-            }
-
             velocidad_actual = velocidad_actual - 5;
+
+            if (velocidad_actual <= 0)
+            {
+                return 0;
+            }
 
             return velocidad_actual;
         }
@@ -92,16 +93,23 @@ namespace ClaseObjetos.Clases
                 return 0;
             }
 
+            velocidad_actual -= 20;
+
             if (velocidad_actual <= 0)
             {
                 return 0;
             }
 
-            velocidad_actual -= 20;
-
             return velocidad_actual;
         }
 
+        public void Marcha_Atras()
+        {
+            if (encendido == 1 && patras==1)
+            {
+                acelerar();
+            }
+        }
         
         public int encender()
         {
@@ -113,13 +121,73 @@ namespace ClaseObjetos.Clases
         }
         public void apagar()
         {
-            if (encendido != 0)
+            if (encendido != 0 && parqueao==1)
             {
                 encendido = 0;
             }
         }
 
+        public void Parking()
+        {
+            if (parqueao == 0)
+            {
+                parqueao = 1;
+            }
+        }
 
+        public void Reversa()
+        {
+            if (patras == 0)
+            {
+                patras = 1;
+            }
+            
+        }
+
+        public void Neutro()
+        {
+            if (quieto == 0)
+            {
+                quieto = 1;
+            }
+        }
+
+        public void Delante()
+        {
+            if (Dlante == 0)
+            {
+                Dlante = 1;
+            }
+        }
+
+        public void CajaCambios(string cambio)
+        {
+            if (velocidad_actual == 0 && encendido == 1)
+            {
+                switch (cambio)
+                {
+                    case "P":
+                        Parking();
+                        break;
+
+                    case "R":
+                        Reversa();
+                        break;
+
+                    case "N":
+                        Neutro();
+                        break;
+
+                    case "D":
+                        Delante();
+                        break;
+                }
+            }
+            else
+            {
+                //**Explota la caja de cambios**
+            }
+        }
 
 
 

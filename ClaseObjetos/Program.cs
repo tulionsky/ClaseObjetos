@@ -36,3 +36,11 @@ else
     Console.WriteLine(car2.frenar()+ "/KPH");
 }
 
+ void Caja_de_Cambios()
+{
+    Console.Write("SELECCIONA QUE CAMBIO HACER\nP=Parking\nR=Reverse\nN=Neutro\nD=Drive\n");
+    string cambio= Console.ReadLine().ToUpper();
+    car2.CajaCambios(cambio);
+    
+        
+}
