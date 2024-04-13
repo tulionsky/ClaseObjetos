@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClaseObjetos.Clases
 {
-    internal class carro
+    public class carro
     {
         public string Marca { get; }
         public string Transmision { get; }
@@ -28,11 +28,11 @@ namespace ClaseObjetos.Clases
         public int  patras= 0;
         public int quieto = 0;
         public int Dlante = 0;
-       
-        //encender luces
-        //encendido de radio
-        //encendido aire
-        //colocar seguro
+        public bool luces_encendidas = false;
+        public bool radio_encendida = false;
+        public bool aire_acondicionado_encendido = false;
+        public bool seguro_activado = false;
+
         public int velocidad_inicial { get; }
         public int velocidad_actual = 0;
         public int Maxvelocidad { get; set; }
@@ -48,9 +48,18 @@ namespace ClaseObjetos.Clases
             Maxvelocidad = VelMax;
             velocidad_inicial = 0;
         }
+
+        public int arrancar()
+        {
+            if (encendido == 1 || arranque!=1)
+            {
+                arranque = 1;
+            }
+            return arranque;
+        } 
         public int acelerar()
         {
-            if (encendido == 0 || quieto==1)
+            if (arranque == 0 || quieto==1)
             {
                 return 0;
             }
@@ -72,7 +81,7 @@ namespace ClaseObjetos.Clases
 
         public int desacelerar()
         {
-            if (encendido == 0 )
+            if (arranque == 0 )
             {
                 return 0;
             }
@@ -88,7 +97,7 @@ namespace ClaseObjetos.Clases
 
         public int frenar()
         {
-            if (encendido == 0)
+            if (arranque == 0)
             {
                 return 0;
             }
@@ -105,12 +114,19 @@ namespace ClaseObjetos.Clases
 
         public void Marcha_Atras()
         {
-            if (encendido == 1 && patras==1)
+            if (arranque == 1 && patras==1)
             {
                 acelerar();
             }
         }
-        
+
+        public void Driving()
+        {
+            if (arranque == 1 && Dlante == 1)
+            {
+                acelerar();
+            }
+        }
         public int encender()
         {
             if (encendido != 1)
@@ -129,6 +145,9 @@ namespace ClaseObjetos.Clases
 
         public void Parking()
         {
+            patras = 0;
+            Dlante = 0;
+            quieto = 0;
             if (parqueao == 0)
             {
                 parqueao = 1;
@@ -137,6 +156,9 @@ namespace ClaseObjetos.Clases
 
         public void Reversa()
         {
+            parqueao = 0;
+            Dlante = 0;
+            quieto = 0;
             if (patras == 0)
             {
                 patras = 1;
@@ -146,6 +168,9 @@ namespace ClaseObjetos.Clases
 
         public void Neutro()
         {
+            patras = 0;
+            Dlante = 0;
+            parqueao = 0;
             if (quieto == 0)
             {
                 quieto = 1;
@@ -154,6 +179,9 @@ namespace ClaseObjetos.Clases
 
         public void Delante()
         {
+            patras = 0;
+            parqueao = 0;
+            quieto = 0;
             if (Dlante == 0)
             {
                 Dlante = 1;
@@ -189,8 +217,57 @@ namespace ClaseObjetos.Clases
             }
         }
 
+        public void EncenderLuces()
+        {
+            if (encendido == 1)
+            {
+                luces_encendidas = true;
+            }
+        }
 
+        public void ApagarLuces()
+        {
+            luces_encendidas = false;
+        }
 
+        public void EncenderRadio()
+        {
+            if (encendido == 1)
+            {
+                radio_encendida = true;
+            }
+        }
+
+        public void ApagarRadio()
+        {
+            radio_encendida = false;
+        }
+
+        public void EncenderAire()
+        {
+            if (encendido == 1)
+            {
+                aire_acondicionado_encendido = true;
+            }
+        }
+
+        public void ApagarAire()
+        {
+            aire_acondicionado_encendido = false;
+        }
+
+        public void ActivarSeguro()
+        {
+            if (encendido == 1 && velocidad_actual == 0)
+            {
+                seguro_activado = true;
+            }
+        }
+
+        public void DesactivarSeguro()
+        {
+            seguro_activado = false;
+        }
 
     }
 }

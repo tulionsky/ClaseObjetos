@@ -17,7 +17,8 @@ if (dec == "1")
     car2.encender();
 }
 
-
+Caja_de_Cambios();
+car2.arrancar();
 //car2.apagar();
 
 if (car2.encendido== 0)
@@ -26,10 +27,11 @@ if (car2.encendido== 0)
 }
 else
 {
-    //Console.WriteLine(car2.acelerar() + "/KPH");
-    //Console.WriteLine(car2.acelerar() + "/KPH");
-    //Console.WriteLine(car2.acelerar() + "/KPH");
-    //Console.WriteLine(car2.acelerar() + "/KPH");
+
+    Console.WriteLine(car2.acelerar() + "/KPH");
+    Console.WriteLine(car2.acelerar() + "/KPH");
+    Console.WriteLine(car2.acelerar() + "/KPH");
+    Console.WriteLine(car2.acelerar() + "/KPH");
 
     Console.WriteLine(car2.desacelerar() + "/KPH");
     Console.WriteLine(car2.acelerar() + "/KPH");
